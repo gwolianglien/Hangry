@@ -4,6 +4,7 @@
   "description": "Find a restaurant pronto to avoid feeling hangry - hungry & angry",
   "main": "index.js",
   "scripts": {
+    "frontend": "npm run start --prefix frontend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Leo Lien",
