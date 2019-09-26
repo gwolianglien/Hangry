@@ -8,8 +8,8 @@ def main():
         root = ElementTree.parse(data_path).getroot()
         restaurantset = create_restaurant_set(root)
         connection = connect()
-        db_data = connection["Data"]
-        db_restaurant = db_data["RestaurantSet"]
+        db_data = connection["RestaurantList"]
+        db_restaurant = db_data["Restaurant"]
         for restaurant in restaurantset:
             db_restaurant.insert_one(restaurant)
         print("Data Upload Complete")
@@ -17,7 +17,7 @@ def main():
         raise Exception("Server Error")
 
 
-if __name__ == "__main+__":
+if __name__ == "__main__":
     main()
 
 main()
