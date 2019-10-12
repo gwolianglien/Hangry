@@ -1,0 +1,19 @@
+"""
+return {
+    restaurant: {
+        name: str,
+        rating: double,
+        price: int,
+        review: str,
+        dishes = [
+            {
+                name: str,
+                review: str,
+            }
+        ],
+        context: [str],
+        cuisine = [str],
+        district = [str]
+    }
+}
+"""
