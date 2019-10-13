@@ -4,7 +4,22 @@ from flask import (
 
 restaurant = Blueprint('restaurant', __name__, url_prefix='/restaurant')
 
-@restaurant.route('/', methods=['POST'])
-def get_restaurants():
-    return "Welcome to the Titanic Game!"
+@restaurant.route('/recommend', methods=['GET'])
+def restaurant_recommendations():
 
+    content = request.json
+    contexts = content.get("contexts")
+    location = content.get("location")
+
+
+    return "Welcome to Hangry!"
+
+
+@restaurant.route('/location', methods=['GET'])
+def location_recommendations():
+    return "Welcome to Hangry!"
+
+
+@restaurant.route('/random', methods=['GET'])
+def random_recommendations():
+    return "Welcome to Hangry!"
