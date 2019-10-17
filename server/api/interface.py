@@ -1,7 +1,7 @@
 from flask import Blueprint, request, Response
 from actions.interface import get_all_unique_attributes
 
-interface = Blueprint('interface', __name__, url_prefix='/interface')
+interface = Blueprint('interface', __name__, url_prefix='/api/interface')
 
 
 @interface.route('/locations', methods=['GET'])

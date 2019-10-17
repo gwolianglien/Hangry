@@ -4,7 +4,6 @@ from api.restaurant import restaurant
 
 def create_flask_app(config):
     app = Flask(__name__)
-
     app.config.from_pyfile(config)
     app.register_blueprint(restaurant)
     return app

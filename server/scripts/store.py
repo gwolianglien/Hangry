@@ -1,12 +1,21 @@
-import xml.etree.ElementTree as ElementTree
-from preprocess import create_restaurant_set
-from db import connect
+import pickle
+from actions.db import connect
 
+
+"""
+Store the data into MongoDB
+"""
 def main():
+
+    filename = 'infatuation_restaurantset.sav'
+    path = '../api/data/'
+    if not os.path.exists(path):
+        os.makedirs(path)
+    filepath = path + filename
+
     try:
-        data_path = 'dataset/infatuation.xml'
-        root = ElementTree.parse(data_path).getroot()
-        restaurantset = create_restaurant_set(root)
+        file_obj = open(filepath, 'rb')
+        restaurantset = pickle.load(file_obj)
         connection = connect()
         db_data = connection["RestaurantList"]
         db_restaurant = db_data["Restaurant"]
