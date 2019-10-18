@@ -1,25 +1,17 @@
+import os
 import pickle
 import pandas as pd
 from actions.data import get_all_unique_attributes
-
-"""
-MetaData
-name, rating, price, context, cuisine, district
-
-Reviews
-name, review
-
-Dishes
-restaurant, dish, review
-"""
+from extract import extract
 
 
-def main():
-    filename = 'infatuation_restaurantset.sav'
+def get_metadata():
+    filename = 'restaurantset.sav'
     path = '../api/data/'
 
     if not os.path.exists(path):
         os.makedirs(path)
+        extract()
 
     filepath = path + filename
 
@@ -29,11 +21,9 @@ def main():
 
         metadata_objs = []
         for restaurant in restaurantset:
-
             contexts = ';'.join(restaurant.get('contexts')) if restaurant.get('contexts') else ''
             cuisines = ';'.join(restaurant.get('cuisineset')) if restaurant.get('cuisineset') else ''
             districts = ';'.join(restaurant.get('districtset')) if restaurant.get('districtset') else ''
-
             metadata_dict = {
                 'name': restaurant.get('name'),
                 'rating': restaurant.get('rating'),
@@ -43,16 +33,28 @@ def main():
                 'districts': districts
             }
             metadata_objs.append(metadata_dict)
-
         metadata = pd.DataFrame(metadata_objs)
 
         locations = get_all_unique_attributes(metadata, key='districts')
-        vibes = get_all_unique_attributes(metadata, key='contexts')
+        contexts = get_all_unique_attributes(metadata, key='contexts')
         cuisines = get_all_unique_attributes(metadata, key='cuisines')
 
+        obj = {
+            'locationlist': locations,
+            'contextlist': contexts,
+            'cuisinelist': cuisines,
+        }
 
+        interface_filename = 'interface.sav'
+        interface_filepath = path + interface_filename
 
+        interface_file = open(interface_filepath, 'wb')
+        pickle.dump(obj, interface_file)
+        interface_file.close()
 
-
-    except AssertionError:
+    except EnvironmentError:
         raise Exception('Error extracting metadata')
+
+
+if __name__ == '__main__':
+    get_metadata()

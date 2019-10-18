@@ -1,16 +1,17 @@
 import pickle
 from actions.db import connect
-
+from extract import extract
 
 """
 Store the data into MongoDB
 """
-def main():
+def store():
 
-    filename = 'infatuation_restaurantset.sav'
+    filename = 'restaurantset.sav'
     path = '../api/data/'
     if not os.path.exists(path):
         os.makedirs(path)
+        extract()  # Create parsed restaurantset object
     filepath = path + filename
 
     try:
@@ -27,4 +28,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    store()

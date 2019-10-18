@@ -2,7 +2,13 @@ from flask import (
     Blueprint, request, Response
 )
 
-restaurant = Blueprint('restaurant', __name__, url_prefix='/api/restaurant')
+restaurant = Blueprint('restaurant', __name__)
+
+
+@restaurant.route('/test', methods=['GET'])
+def test_restaurant_route():
+    return "Hello, Restaurant Route!"
+
 
 @restaurant.route('/recommend', methods=['GET'])
 def restaurant_recommendations():
