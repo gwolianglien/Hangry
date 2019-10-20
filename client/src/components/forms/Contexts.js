@@ -1,23 +1,45 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const Contexts = () => {
 
-  // Load and set all location data
-  // useEffect(() => {
-  //   loadLocations(locations => location.allLocations = locations);
-  // })
+  const [user, setContexts] = useState('context': '');
+  const [choices, setChoices] = useState('list': []);
+  const [contextsList, setContextsList] = useState([]);
 
-  const [contextsForm, setContexts] = useState({
-    'contexts': [],
-    'allContexts': [],
-  });
+  useEffect(() => {
+    const loadContexts = async () => {
+      try {
+        const res = await axios.get('/api/interface/contexts');
+        return res.data;
+      } catch(err) {
+        console.error(err.message);  // Temporary for handling error in dev
+      }
+    }
+    loadContexts().then(res => {
+      const contexts = res.split(';');
+      setContextsList(contexts)
+    });
+  }, [contextsList.length]);
 
   const handleChange = event => setContexts({
-    ...locationForm,
+    ...user,
+    [event.target.id]: event.target.value,
+  });
 
-    [event.target.id]: event.target.value
-  })
+  const handleAdd = event => {
+    if (!user.context) {
+      alert('Please let us know what kind of place you want to visit!');
+    }
+    var curr = user.context;
+    var index = choices.list.indexOf(curr);
+    if (index !== -1) {
+      alert('You already added this context!');
+    }
 
+    var temp = choices.list.push(curr);
+    setChoices('list': temp);
+  }
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -26,18 +48,11 @@ const Contexts = () => {
   return (
     <form onSubmit={event=>handleSubmit(event)}>
       <div className="form-group">
-        <label htmlFor="location">Location</label>
-        <select className="form-control" id="location">
+        <label htmlFor="context">What are you feeling?</label>
+        <select className="form-control" id="context" onChange={event=>handleChange(event)} value={user.context}>
           {
-            // location.allLocations.map(loc => {
-            //   return (
-            //     <option>{loc}</option>
-            //   )
-            // })
+            contextsList.map((context, i) => <option key={i} value={`${context}`}>{context}</option> )
           }
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
         </select>
       </div>
     </form>

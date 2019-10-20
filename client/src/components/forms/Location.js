@@ -14,7 +14,7 @@ const Location = () => {
         const res = await axios.get('/api/interface/locations');
         return res.data;
       } catch(err) {
-        console.error(err.message);
+        console.error(err.message);  // Temporary for handling error in dev
       }
     }
     loadLocations().then(res => {
