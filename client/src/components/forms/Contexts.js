@@ -27,7 +27,7 @@ const Contexts = () => {
     <form onSubmit={event=>handleSubmit(event)}>
       <div className="form-group">
         <label htmlFor="location">Location</label>
-        <select class="form-control" id="location">
+        <select className="form-control" id="location">
           {
             // location.allLocations.map(loc => {
             //   return (

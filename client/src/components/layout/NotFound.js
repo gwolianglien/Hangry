@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 const NotFound = () => {
   return (
     <Fragment>
-      <h1>Sorry, We Couldn't Find Your Page!</h1>
+      <h1>
+        <Link to='/'>
+          Sorry, We Couldn't Find Your Page!
+        </Link>
+      </h1>
     </Fragment>
   )
 }
