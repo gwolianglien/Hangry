@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import Location from '../forms/Location';
-import Contexts from '../forms/Contexts';
+import Form from './Form';
 
 const Banner = () => {
   return (
@@ -17,9 +16,9 @@ const Home = () => {
   return (
     <Fragment>
       <Banner />
-      <Location />
-      <Contexts />
+      <Form />
     </Fragment>
   )
 }
+
 export default Home;

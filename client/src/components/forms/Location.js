@@ -1,13 +1,11 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-// import { parseData } from '../../actions/interface';
+import React, { Fragment, useState, useEffect } from 'react';
 
 const Location = () => {
-  // Default state and form
+
   const [user, setLocation] = useState({ 'location': '' });
   const [locationsList, setLocationList] = useState([]);
 
-  // Load and set all location data
   useEffect(() => {
     const loadLocations = async () => {
       try {
@@ -23,26 +21,30 @@ const Location = () => {
     });
   }, [locationsList.length]);
 
-  const handleChange = event => setLocation({
+  const handleChange = event => {
+    setLocation({
     ...user,
     [event.target.id]: event.target.value
-  })
-
-  const handleSubmit = async event => {
-    event.preventDefault();
+    });
+    dispatch({
+      type: 'LOCATION',
+      data: user.location
+    });
   }
 
   return (
-    <form onSubmit={event=>handleSubmit(event)}>
-      <div className="form-group">
-        <h5>Where are you?</h5>
-        <select className="form-control" id="location" onChange={event=>handleChange(event)} value={user.location}>
-          {
-            locationsList.map((location, i) => <option key={i} value={`${location}`}>{location}</option>)
-          }
-        </select>
+    <Fragment>
+      <div className="location-form">
+        <div className="form-group">
+          <h5>Where do you want to eat?</h5>
+          <select className="form-control" id="location" onChange={event=>handleChange(event)} value={user.location}>
+            {
+              locationsList.map((location, i) => <option key={i} value={`${location}`}>{location}</option>)
+            }
+          </select>
+        </div>
       </div>
-    </form>
+    </Fragment>
   )
 }
 
