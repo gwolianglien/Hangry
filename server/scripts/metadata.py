@@ -33,7 +33,14 @@ def get_metadata():
                 'districts': districts
             }
             metadata_objs.append(metadata_dict)
+
         metadata = pd.DataFrame(metadata_objs)
+
+        metadata_filename = 'metadata.sav'
+        metadata_filepath = path + metadata_filename
+        metadata_file = open(metadata_filepath, 'wb')
+        pickle.dump(metadata, metadata_file)
+        metadata_file.close()
 
         locations = get_all_unique_attributes(metadata, key='districts')
         contexts = get_all_unique_attributes(metadata, key='contexts')
