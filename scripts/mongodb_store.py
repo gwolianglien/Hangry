@@ -8,7 +8,7 @@ Store the data into MongoDB
 def store():
 
     filename = 'restaurantset.sav'
-    path = '../api/data/'
+    path = os.path.join('..', 'server', 'recommendations', 'data')
     if not os.path.exists(path):
         os.makedirs(path)
         extract()  # Create parsed restaurantset object
@@ -25,6 +25,24 @@ def store():
         print("Data Upload Complete")
     except:
         raise Exception("Server Error")
+
+
+def get_mongo_uri(username, password, db, collection):
+    return genericMongoURI.format(username, password, db, collection)
+
+
+def connect():
+    try:
+        my_mongoURI = get_mongo_uri(username, password, db_name, collection_name)
+        client = pymongo.MongoClient(
+            my_mongoURI,
+            ssl=True,
+            ssl_cert_reqs=ssl.CERT_NONE
+        )
+        print("MongoDB Connected...")
+        return client
+    except pymongo.errors.ConnectionFailure:
+        print("Server Not Available")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,10 @@
 import os
 import pickle
 import pandas as pd
-from actions.data import get_all_unique_attributes
 from extract import extract
 
 
-def get_metadata():
+def get_interface_data():
     filename = 'restaurantset.sav'
     path = '../api/data/'
 
@@ -61,6 +60,27 @@ def get_metadata():
 
     except EnvironmentError:
         raise Exception('Error extracting metadata')
+
+
+def get_all_unique_attributes(df, key='districts', delimiter=';', sort=True) -> list:
+
+    # handle if input cannot be found
+    if key not in df:
+        raise Exception('Metadata key could not be found')
+
+    attributes = list(df[key])
+    unique_attributes = []
+
+    for attribute in attributes:
+        arr = attribute.split(delimiter)
+        unique_attributes.extend(arr)
+
+    unique_attributes = list(set(unique_attributes))
+
+    if sort is True:
+        unique_attributes.sort()
+
+    return unique_attributes
 
 
 if __name__ == '__main__':
