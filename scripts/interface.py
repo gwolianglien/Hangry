@@ -5,14 +5,13 @@ from extract import extract
 
 
 def get_interface_data():
-    filename = 'restaurantset.sav'
-    path = '../api/data/'
 
+    filename = 'restaurantset.sav'
+    path = os.path.join('..', 'server', 'recommendations', 'data')
     if not os.path.exists(path):
         os.makedirs(path)
-        extract()
-
-    filepath = path + filename
+        extract()  # Create parsed restaurantset object
+    filepath = os.path.join(path, filename)
 
     try:
         file_obj = open(filepath, 'rb')
@@ -34,9 +33,9 @@ def get_interface_data():
             metadata_objs.append(metadata_dict)
 
         metadata = pd.DataFrame(metadata_objs)
-
         metadata_filename = 'metadata.sav'
-        metadata_filepath = path + metadata_filename
+        metadata_filepath = os.path.join(path, metadata_filename)
+
         metadata_file = open(metadata_filepath, 'wb')
         pickle.dump(metadata, metadata_file)
         metadata_file.close()
@@ -52,7 +51,7 @@ def get_interface_data():
         }
 
         interface_filename = 'interface.sav'
-        interface_filepath = path + interface_filename
+        interface_filepath = os.path.join(path, interface_filename)
 
         interface_file = open(interface_filepath, 'wb')
         pickle.dump(obj, interface_file)
@@ -84,4 +83,4 @@ def get_all_unique_attributes(df, key='districts', delimiter=';', sort=True) -> 
 
 
 if __name__ == '__main__':
-    get_metadata()
+    get_interface_data()

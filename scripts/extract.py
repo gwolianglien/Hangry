@@ -16,7 +16,7 @@ def extract():
         path = os.path.join('..', 'server', 'recommendations', 'data')
         if not os.path.exists(path):
             os.makedirs(path)
-        filepath = path + filename
+        filepath = os.path.join(path, filename)
 
         file_obj = open(filepath, 'wb')
         pickle.dump(restaurantset, file_obj)
