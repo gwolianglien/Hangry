@@ -4,16 +4,15 @@ import pandas as pd
 
 
 def load_data():
+    data_dir_path = './'
+    interface_filename = 'interface.sav'
+    restaurant_filename = 'restaurant.sav'
+    metadata_filename = 'metadata.sav'
+
     try:
-        interface_filepath = os.path.join('..', 'data', 'interface.sav')
-        interface = get_stored_data(interface_filepath)
-
-        restaurantset_filepath = os.path.join('..', 'data', 'restaurantset.sav')
-        restaurantset = get_stored_data(restaurantset_filepath)
-
-        metadata_filepath = os.path.join('..', 'data', 'metadata.sav')
-        metadata = get_stored_data(metadata_filepath)
-
+        interface = get_stored_data(os.path.join(data_dir_path, interface_filename))
+        restaurantset = get_stored_data(os.path.join(data_dir_path, restaurant_filename))
+        metadata = get_stored_data(os.path.join(data_dir_path, metadata_filename))
         return restaurantset, interface, metadata
     except FileNotFoundError:
         raise Exception('Error Loading Restaurant Data')

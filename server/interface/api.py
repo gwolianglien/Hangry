@@ -1,7 +1,7 @@
 import os
 import pickle
 from flask import Blueprint, Response
-from api.actions.interface import load_data
+from interface.api.actions import load_data
 
 interface = Blueprint('interface', __name__)
 
