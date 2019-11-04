@@ -2,8 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'react-redux';
-import Contexts from '../forms/Contexts';
+import PropTypes from 'prop-types';
+
+import { getRecommendations } from '../../actions/recommendations';
+// import Contexts from '../forms/Contexts';
 import Location from '../forms/Location';
 
 const Forms = ({ location, contexts, getRecommendations }) => {
@@ -19,16 +21,18 @@ const Forms = ({ location, contexts, getRecommendations }) => {
 
   return (
     <form onSubmit={event=>handleSubmit(event)}>
+    {
+      // <Contexts />
+    }
       <Location />
-      <Contexts />
       <button type="button" className="btn btn-primary" onClick={event=>handleSubmit(event)}>Primary</button>
     </form>
   )
 }
 
 const mapStateToProps = state => ({
-  location: state.forms.location,
-  contexts: state.forms.contexts
+  location: state.userInputs.location,
+  contexts: state.userInputs.contexts
 });
 
 Forms.propTypes = {

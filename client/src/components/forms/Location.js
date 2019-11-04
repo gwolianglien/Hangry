@@ -26,10 +26,10 @@ const Location = () => {
     ...user,
     [event.target.id]: event.target.value
     });
-    dispatch({
-      type: 'LOCATION',
-      data: user.location
-    });
+    // dispatch({
+    //   type: 'LOCATION',
+    //   data: user.location
+    // });
   }
 
   return (

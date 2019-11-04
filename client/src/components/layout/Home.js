@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Form from './Form';
+import Forms from './Forms';
 
 const Banner = () => {
   return (
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <Fragment>
       <Banner />
-      <Form />
+      <Forms />
     </Fragment>
   )
 }

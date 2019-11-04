@@ -1,9 +1,7 @@
 from flask import (
     Blueprint, request, Response
 )
-from recommendations.actions.restaurant import (
-    get_restaurant_recommendations
-)
+from recommendations.actions.restaurant import get_restaurant_recommendations
 
 recommendations = Blueprint('recommendations', __name__)
 

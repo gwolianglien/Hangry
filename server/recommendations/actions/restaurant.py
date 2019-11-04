@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from interface import get_stored_data, get_unique_values
+from .interface import get_stored_data, get_unique_values
 
 
 def get_restaurant_recommendations(location: str, contexts: list) -> list:

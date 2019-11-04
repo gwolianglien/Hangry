@@ -9,7 +9,7 @@ interface = Blueprint('interface', __name__)
 @interface.route('/locations', methods=['GET'])
 def interface_locations_list():
     try:
-        raw_data = load_data()[1]
+        raw_data = load_data()
         locationslist = raw_data['locationlist']
         locationslist = ';'.join(locationslist)
         res = Response(locationslist, status=200)
@@ -22,7 +22,7 @@ def interface_locations_list():
 @interface.route('/contexts', methods=['GET'])
 def interface_contexts_list():
     try:
-        raw_data = load_data()[1]
+        raw_data = load_data()
         contextlist = raw_data['contextlist']
         contextlist = ';'.join(contextlist)
         res = Response(contextlist, status=200)
@@ -35,7 +35,7 @@ def interface_contexts_list():
 @interface.route('/cuisines', methods=['GET'])
 def interface_cuisines_list():
     try:
-        raw_data = load_data()[1]
+        raw_data = load_data()
         cuisinelist = raw_data['cuisinelist']
         cuisinelist = ';'.join(cuisinelist)
         res = Response(cuisinelist, status=200)

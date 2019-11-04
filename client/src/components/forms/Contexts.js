@@ -27,10 +27,10 @@ const Contexts = () => {
       ...user,
       [event.target.id]: event.target.value,
     });
-    dispatch({
-      type: 'CONTEXTS',
-      data: user.context,
-    })
+    // dispatch({
+    //   type: 'CONTEXTS',
+    //   data: user.context,
+    // })
   }
 
   // // For additional features later
