@@ -1,13 +1,9 @@
 import os
 import pickle
 from flask import Blueprint, Response
-from interface.api.actions import load_data
+from interface.actions.interface import load_data
 
 interface = Blueprint('interface', __name__)
-
-@interface.route('/test', methods=['GET'])
-def interface_test_route():
-    return "Hello, Interface Route!"
 
 
 @interface.route('/locations', methods=['GET'])
@@ -27,9 +23,9 @@ def interface_locations_list():
 def interface_contexts_list():
     try:
         raw_data = load_data()[1]
-        locationslist = raw_data['contextlist']
-        locationslist = ';'.join(locationslist)
-        res = Response(locationslist, status=200)
+        contextlist = raw_data['contextlist']
+        contextlist = ';'.join(contextlist)
+        res = Response(contextlist, status=200)
         return res
     except FileNotFoundError:
         res = Response('Server Error: Interface Modules Not Found', status=500)
@@ -37,12 +33,12 @@ def interface_contexts_list():
 
 
 @interface.route('/cuisines', methods=['GET'])
-def all_cuisines():
+def interface_cuisines_list():
     try:
         raw_data = load_data()[1]
-        locationslist = raw_data['cuisinelist']
-        locationslist = ';'.join(locationslist)
-        res = Response(locationslist, status=200)
+        cuisinelist = raw_data['cuisinelist']
+        cuisinelist = ';'.join(cuisinelist)
+        res = Response(cuisinelist, status=200)
         return res
     except FileNotFoundError:
         res = Response('Server Error: Interface Modules Not Found', status=500)

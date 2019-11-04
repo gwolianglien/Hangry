@@ -1,19 +1,14 @@
 from flask import (
     Blueprint, request, Response
 )
-from api.actions.restaurant import (
+from recommendations.actions.restaurant import (
     get_restaurant_recommendations
 )
 
-restaurant = Blueprint('restaurant', __name__)
+recommendations = Blueprint('recommendations', __name__)
 
 
-@restaurant.route('/test', methods=['GET'])
-def test_restaurant_route():
-    return "Hello, Restaurant Route!"
-
-
-@restaurant.route('/restaurant', methods=['GET'])
+@recommendations.route('/restaurant', methods=['GET'])
 def restaurant_recommendations():
     try:
         content = request.json

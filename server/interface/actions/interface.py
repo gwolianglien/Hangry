@@ -1,4 +1,5 @@
 import os
+import pickle
 
 
 def load_data():
@@ -14,3 +15,16 @@ def load_data():
         return restaurantset, interface, metadata
     except FileNotFoundError:
         raise Exception('Error Loading Restaurant Data')
+
+
+def get_stored_data(filepath: str) -> object:
+    file = open(filepath, 'rb')
+    unpickled = pickle.load(file)
+    return unpickled
+
+
+def get_unique_values(series: 'Pandas Series', sort=True) -> dict:
+    uniques = list(set(series))
+    if sort:
+        uniques.sort()
+    return { key: 0 for key in uniques }
