@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getRecommendations } from '../../actions/recommendations';
-// import Contexts from '../forms/Contexts';
+import Contexts from '../forms/Contexts';
 import Location from '../forms/Location';
 
 const Forms = ({ location, contexts, getRecommendations }) => {
@@ -21,25 +21,23 @@ const Forms = ({ location, contexts, getRecommendations }) => {
 
   return (
     <form onSubmit={event=>handleSubmit(event)}>
-    {
-      // <Contexts />
-    }
+      <Contexts />
       <Location />
       <button type="button" className="btn btn-primary" onClick={event=>handleSubmit(event)}>Primary</button>
     </form>
   )
 }
 
-const mapStateToProps = state => ({
-  location: state.userInputs.location,
-  contexts: state.userInputs.contexts
-});
-
 Forms.propTypes = {
   location: PropTypes.string,
   contexts: PropTypes.array,
   getRecommendations: PropTypes.func.isRequired,
 }
+
+const mapStateToProps = state => ({
+  location: state.inputs.location,
+  contexts: state.inputs.contexts
+});
 
 export default connect(
   mapStateToProps,

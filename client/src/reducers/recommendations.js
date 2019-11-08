@@ -1,12 +1,13 @@
+
 const initialState = {
     recommendations: []
 }
-  
-const recommendations = (state=initialState, action) => {
+
+export default (currentState=initialState, action) => {
     switch(action.type) {
         case 'RECOMMENDATION':
             return {
-                ...state,
+                ...currentState,
                 location: action.data
             }
         case 'CLEAR':
@@ -14,9 +15,6 @@ const recommendations = (state=initialState, action) => {
                 recommendations: [],
             }
         default:
-            return state;
+            return currentState;
     }
 }
-
-export default recommendations;
-  

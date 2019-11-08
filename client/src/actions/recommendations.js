@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const getRecommendations = (body) => async dispatch => {
-    const config = { 
-        header: { 
+    const config = {
+        header: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
