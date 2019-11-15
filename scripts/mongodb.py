@@ -2,25 +2,17 @@ import os
 import pickle
 import ssl
 import pymongo
-from extract import extract
+from extract import extract_restaurantset_xml
+from access import load_restaurantset_store
 from default import genericMongoURI, username, password, db_name, collection_name
 
 
 """
 Store the data into MongoDB
 """
-def store():
-
-    filename = 'restaurantset.sav'
-    path = os.path.join('..', 'server', 'recommendations', 'data')
-    if not os.path.exists(path):
-        os.makedirs(path)
-        extract()  # Create parsed restaurantset object
-    filepath = os.path.join(path, filename)
-
+def mongodb_store():
     try:
-        file_obj = open(filepath, 'rb')
-        restaurantset = pickle.load(file_obj)
+        restaurantset = load_restaurantset_store()
         connection = connect()
         db_data = connection["RestaurantList"]
         db_restaurant = db_data["Restaurant"]
@@ -50,4 +42,4 @@ def get_mongo_uri(username, password, db, collection):
 
 
 if __name__ == "__main__":
-    store()
+    mongodb_store()
