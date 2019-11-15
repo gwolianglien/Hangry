@@ -1,5 +1,4 @@
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
@@ -7,7 +6,8 @@ class Config(object):
     Base Config Class
     """
     DEBUG = True
-    TESTING = False
+    TESTING = True
+    PRODUCTION = False
     CSRF_ENABLED = True
     SECRET_KEY = ''
 
@@ -17,6 +17,8 @@ class ProductionConfig(Config):
     Production Config
     """
     DEBUG = False
+    TESTING = False
+    PRODUCTION = True
 
 
 class DevelopmentConfig(Config):
@@ -25,3 +27,4 @@ class DevelopmentConfig(Config):
     """
     DEBUG = True
     TESTING = True
+    PRODUCTION = False
