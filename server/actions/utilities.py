@@ -26,6 +26,6 @@ def load_pickled_data(filepath):
         data = pickle.load(f)
         return data
     except FileNotFoundError:
-        raise Exception('{} does not exist'.format(filepath))
+        return "File not found"
     except:
-        raise Exception('Error loading data')
+        return "Error loading data"

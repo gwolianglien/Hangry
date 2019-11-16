@@ -8,35 +8,35 @@ These APIs will act as data pipelines to power the frontend UI
 interface = Blueprint('interface', __name__)
 
 
-@interface.route('/locations', methods=['POST'])
+@interface.route('/locations', methods=['GET'])
 def interface_locations():
     try:
-        interface_fp = os.path.join('store', 'interface.sav')
-        interface = load_pickled_data(interface_fp)
-        locations = { locations: interface['locationlist'] }
-        return Response(locations, status=200)
+        fp = os.path.join('store', 'interface.sav')
+        obj = load_pickled_data(fp)
+        res = ';'.join(obj['locationlist'])
+        return Response(res, status=200)
     except:
         return Response('Server Error: Interface Modules Not Found', status=500)
 
 
-@interface.route('/contexts', methods=['POST'])
+@interface.route('/contexts', methods=['GET'])
 def interface_contexts():
     try:
-        interface_fp = os.path.join('store', 'interface.sav')
-        interface = load_pickled_data(interface_fp)
-        contexts = { contexts: interface['contextlist'] }
-        return Response(contexts, status=200)
+        fp = os.path.join('store', 'interface.sav')
+        obj = load_pickled_data(fp)
+        res = ';'.join(obj['contextlist'])
+        return Response(res, status=200)
     except:
         return Response('Server Error', status=500)
 
 
-@interface.route('/cuisines', methods=['POST'])
+@interface.route('/cuisines', methods=['GET'])
 def interface_cuisines():
     try:
-        interface_fp = os.path.join('store', 'interface.sav')
-        interface = load_pickled_data(interface_fp)
-        cuisines = { cuisines: interface['cuisinelist'] }
-        return Response(cuisines, status=200)
+        fp = os.path.join('store', 'interface.sav')
+        obj = load_pickled_data(fp)
+        res = ';'.join(obj['cuisinelist'])
+        return Response(res, status=200)
     except:
         return Response('Server Error', status=500)
 

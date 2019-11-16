@@ -3,7 +3,7 @@ import random
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from utilities import load_restaurantset, load_interface
+from . utilities import load_restaurantset, load_interface
 
 
 def get_restaurant_recommendations(contexts: list, location: str, cuisines: list) -> list:
@@ -25,7 +25,7 @@ Recommendation Functions
 # Recommend based on no user input
 def naive_recommendation() -> list:  # works
     restaurantset = load_restaurantset()
-    recs = get_recommendations(restaurantset, random=, top=15, num=3)
+    recs = get_recommendations(restaurantset, top=15, num=3)
     return recs
 
 
