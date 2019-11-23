@@ -6,7 +6,7 @@ const Banner = () => {
     <div className="banner">
       <h1>Hangry</h1>
       <h3>
-        Stop hangry strikes. Get food recs faster than ever.
+        Stop hangry strikes. Get food recs fast.
       </h3>
     </div>
   )

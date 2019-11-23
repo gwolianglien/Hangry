@@ -1,8 +1,14 @@
 import { combineReducers } from 'redux';
-import inputs from './inputs';
+import alerts from './alerts';
+import contexts from './contexts';
+import locations from './locations';
+import cuisines from './cuisines';
 import recommendations from './recommendations';
 
 export default combineReducers({
-  inputs,
-  recommendations
+  alerts,
+  contexts,
+  locations,
+  cuisines,
+  recommendations,
 });

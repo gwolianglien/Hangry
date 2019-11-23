@@ -1,0 +1,11 @@
+export const ADD_CONTEXT = 'ADD_CONTEXT';
+export const REMOVE_CONTEXT = 'REMOVE_CONTEXT';
+export const ADD_LOCATION = 'ADD_LOCATION';
+export const REMOVE_LOCATION = 'REMOVE_LOCATION';
+export const ADD_CUISINE = 'ADD_CUISINE';
+export const REMOVE_CUISINE = 'REMOVE_CUISINE';
+export const ADD_ALERT = 'ADD_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+
+export const SET_RECOMMENDATIONS = 'SET_RECOMMENDATIONS';
+export const CLEAR = 'CLEAR';

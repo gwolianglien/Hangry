@@ -1,22 +1,21 @@
 import React from 'react';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getRecommendations } from '../../actions/recommendations';
-import Contexts from '../forms/Contexts';
-import Location from '../forms/Location';
+import { getRecommendations } from '../actions/recommendations';
+import Contexts from './Contexts';
+import Location from './Location';
 
-const Forms = ({ location, contexts, getRecommendations }) => {
+const Forms = ({ locations, contexts, getRecommendations }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
     const obj = {
-      location: location,
+      locations: locations,
       contexts: contexts,
     }
-    getRecommendations().then(() => <Redirect to='/' />)
+    getRecommendations(obj).then(() => ( <Redirect to='/' /> ));
   }
 
   return (
@@ -29,14 +28,14 @@ const Forms = ({ location, contexts, getRecommendations }) => {
 }
 
 Forms.propTypes = {
-  location: PropTypes.string,
+  location: PropTypes.array,
   contexts: PropTypes.array,
   getRecommendations: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  location: state.inputs.location,
-  contexts: state.inputs.contexts
+  locations: state.locations,
+  contexts: state.contexts
 });
 
 export default connect(

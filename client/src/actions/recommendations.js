@@ -1,6 +1,9 @@
 import axios from 'axios';
+import {
+  SET_RECOMMENDATIONS,
+} from './constants';
 
-export const getRecommendations = (body) => async dispatch => {
+export const getRecommendations = obj => async dispatch => {
     const config = {
         header: {
             'Content-Type': 'application/json',
@@ -8,16 +11,13 @@ export const getRecommendations = (body) => async dispatch => {
         },
     }
     try {
-        const recommendations = await axios.get('/api/restaurant/recommend', body, config);
+        const recommendations = await axios.get('/api/recommendations/restaurant', obj, config);
         dispatch({
-            type: 'RECOMMENDATION',
-            data: recommendations,
+            type: SET_RECOMMENDATIONS,
+            payload: recommendations,
         });
     } catch(err) {
         const errors = err.response.data.errors;
         console.error(errors);
-        // if (errors) {
-        //     errors.forEach(error => dispatch(createAlert(error.msg, 'danger')));
-        // }
     }
 }
