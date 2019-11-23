@@ -1,11 +1,3 @@
-.App {
-  position: relative;
-  left: 5vw;
-  right: 5vw;
-  top: 5vh;
-  width: 90vw;
-}
-
 .context-card {
   text-decoration: none;
   -o-transition:.5s;
@@ -14,30 +6,40 @@
   -webkit-transition:.5s;
   transition:.5s;
 }
-.context-card:hover {
-  background-color: #DB5656;
-}
+.context-card:hover { background-color: #DB5656; }
+.overlay-1 { z-index: 1; }
+.overlay-2 { z-index: 2; }
+.overlay-3 { z-index: 3; }
+.underlay-1 { z-index: -1; }
+.underlay-2 { z-index: -2; }
+.underlay-3 { z-index: -3; }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-
+  .app { position: relative; left: 5vw; right: 5vw; top: 10vh; width: 90vw; z-index: 0; }
+  .container-spacing { padding-top: 2vh; }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  .app { position: relative; left: 5vw; right: 5vw; top: 10vh; width: 90vw; z-index: 0; }
+  .container-spacing { padding-top: 2vh; }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .app { position: relative; left: 5vw; right: 5vw; top: 10vh; width: 90vw; z-index: 0; }
+  .container-spacing { padding-top: 2vh; }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .app { position: relative; left: 10vw; right: 10vw; top: 10vh; width: 80vw; z-index: 0; }
+  .container-spacing { padding-top: 2vh; }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-
+  .app { position: relative; left: 10vw; right: 10vw; top: 10vh; width: 80vw; z-index: 0; }
+  .container-spacing { padding-top: 2vh; }
 }

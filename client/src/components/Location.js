@@ -33,7 +33,7 @@ const Location = ({ addLocation }) => {
     <div className="locations-container">
       <div className="location-form">
         <div className="form-group">
-          <h5>Where do you want to eat?</h5>
+          <h5 className="text-center">Where to?</h5>
           <select className="form-control" id="location" onChange={event => handleChange(event)} value={user.location}>
             <option value=''>Surprise Me!</option>
             {

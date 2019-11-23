@@ -3,8 +3,12 @@ import {
     REMOVE_CONTEXT,
     ADD_LOCATION,
     REMOVE_LOCATION,
+    CLEAR
 } from './constants';
-  
+
+export const clear = () => async dispatch => {
+    dispatch({ type: CLEAR });
+}
   
 export const addContext = context => async dispatch => {
     dispatch({ type: ADD_CONTEXT, payload: context });

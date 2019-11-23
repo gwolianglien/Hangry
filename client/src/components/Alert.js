@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 
 const Alert = ({ alerts }) => (
     alerts.map(alert => (
-        <div key={alert.id} className={`alert alert-${alert.type}`} role='alert'>
+        <div key={alert.id} className={`alert alert-${alert.type} overlay-1`} role='alert'>
             {alert.msg}
         </div>
     ))
-)
+);
 
 Alert.propTypes = {
     alerts: PropTypes.array.isRequired
