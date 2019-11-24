@@ -1,4 +1,4 @@
-from flask import Blueprint, request, Response
+from flask import Blueprint, request, Response, jsonify
 from actions.recommendations import get_restaurant_recommendations
 
 recommendations = Blueprint('recommendations', __name__)
@@ -9,9 +9,16 @@ def restaurant_recommendations():
     try:
         req = request.get_json()
         contexts = req.get("contexts")
-        location = req.get("location")
+        locations = req.get("locations")
         cuisines = req.get("cuisines")
-        recommendations = get_restaurant_recommendations(contexts, location, cuisines)
-        return Response(recommendations, status=200)
+        recommendations = get_restaurant_recommendations(contexts, locations, cuisines)
+
+        recs = {}
+        for i in range(len(recommendations)):
+            name = 'rec{}'.format(i+1)
+            recs[name] = recommendations[i]
+        obj = jsonify(recs)
+
+        return obj
     except:
         return Response('Server Error', status=500)

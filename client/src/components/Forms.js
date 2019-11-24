@@ -1,27 +1,22 @@
 import React, { Fragment } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { removeContext, clear } from '../actions/inputs';
+import { clear } from '../actions/inputs';
 import { getRecommendations } from '../actions/recommendations';
 import Contexts from './Contexts';
 import Location from './Location';
 
-const Forms = ({ locations, contexts, removeContext, clear, getRecommendations }) => {
-
+const Forms = ({ locations, contexts, clear, getRecommendations }) => {
+  
   const handleSubmit = async event => {
     event.preventDefault();
     const obj = {
       locations: locations,
       contexts: contexts,
     }
-    getRecommendations(obj).then(() => ( <Redirect to='/' /> ));
-  }
-
-  const handleContextRemove = context => {
-    console.log(context)
-    removeContext(context);
+    getRecommendations(obj).then(() => ( <Redirect to='/recommendations' /> ));
   }
 
   return (
@@ -45,7 +40,7 @@ const Forms = ({ locations, contexts, removeContext, clear, getRecommendations }
             <ul className="list-group list-group-flush">
               {contexts.map((context, i) => {
                 return (
-                  <li className="list-group-item" key={`context-${i}`} onClick={context => handleContextRemove(context)}>
+                  <li className="list-group-item" key={`context-${i}`}>
                     {context}
                   </li>
                 )
@@ -78,7 +73,6 @@ const Forms = ({ locations, contexts, removeContext, clear, getRecommendations }
 Forms.propTypes = {
   location: PropTypes.array,
   contexts: PropTypes.array,
-  removeContext: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   getRecommendations: PropTypes.func.isRequired,
 }
@@ -88,11 +82,10 @@ const mapStateToProps = state => ({
   contexts: state.contexts
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   {
-    removeContext,
     clear,
     getRecommendations
   }
-)(Forms);
+)(Forms));

@@ -1,20 +1,20 @@
 import os
-import random
+from random import sample
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from . utilities import load_restaurantset, load_interface
 
 
-def get_restaurant_recommendations(contexts: list, location: str, cuisines: list) -> list:
-    if not contexts and not location and not cuisines:
+def get_restaurant_recommendations(contexts: list, locations: list, cuisines: list) -> list:
+    if not contexts and not locations and not cuisines:
         return naive_recommendation()
-    if location and not contexts and not cuisines:
-        return location_recommendation(location=location)
-    if contexts and not location and not cuisines:
+    if locations and not contexts and not cuisines:
+        return location_recommendation(locations=locations)
+    if contexts and not locations and not cuisines:
         return context_recommendation(contexts=contexts)
-    if contexts and location and not cuisines:
-        return context_location_recommendation(contexts=contexts, location=location)
+    if contexts and locations and not cuisines:
+        return context_location_recommendation(contexts=contexts, locations=locations)
     else:
         return []
 
@@ -25,14 +25,14 @@ Recommendation Functions
 # Recommend based on no user input
 def naive_recommendation() -> list:  # works
     restaurantset = load_restaurantset()
-    recs = get_recommendations(restaurantset, top=15, num=3)
+    recs = get_recommendations(restaurantset, random=True, top=15, num=3)
     return recs
 
 
 # Recommend based on only a location input
-def location_recommendation(location: str) -> list:
+def location_recommendation(locations: list) -> list:
     restaurantset = load_restaurantset()
-    relevant_restaurants = location_filter(restaurantset, location)
+    relevant_restaurants = location_filter(restaurantset, locations)
     recs = get_recommendations(relevant_restaurants)
     return recs
 
@@ -46,9 +46,9 @@ def context_recommendation(contexts: list) -> list:
 
 
 # Recommend based on context and location inputs
-def context_location_recommendation(contexts: list, location: str) -> list:
+def context_location_recommendation(contexts: list, locations: list) -> list:
     restaurantset = load_restaurantset()
-    relevant_restaurants = location_filter(restaurantset, location)
+    relevant_restaurants = location_filter(restaurantset, locations)
     relevant_restaurants = context_filter(relevant_restaurants, contexts)
     recs = get_recommendations(relevant_restaurants)
     return recs
@@ -61,17 +61,24 @@ def get_recommendations(restaurantset, random=True, top=25, num=3) -> list:
     restaurantset.sort(key=lambda r: r['rating'], reverse=True)  # sort by rating
     restaurantset = restaurantset[:top]  # pick out top 25
     if random:
-        recommendations = random.sample(restaurantset, num)  # choose 3 random from top 25
+        recommendations = sample(restaurantset, num)  # choose 3 random from top 25
     else:
-        recommendations = restaurantset[:3]
+        recommendations = restaurantset[:num]
     return recommendations
 
 """
 Filter functions to select relevant restaurants based on user inputs and criteria
 """
 # Filter and select restaurants that contain the user location input
-def location_filter(restaurantset: list, location: str) -> list:
-    relevant_restaurants = [ r for r in restaurantset if location in r['districtset'] ]
+def location_filter(restaurantset: list, locations: list) -> list:
+    locations = set(locations)
+    relevant_restaurants = []
+    for r in restaurantset:
+        curr = r['districtset']
+        for district in curr:
+            if district in locations:
+                relevant_restaurants.append(restaurantset)
+                break
     return relevant_restaurants
 
 

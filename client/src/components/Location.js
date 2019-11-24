@@ -50,12 +50,8 @@ Location.propTypes = {
   addLocation: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
-  locations: state.locations
-})
-
 export default connect(
-  mapStateToProps,
+  null,
   {
     addLocation,
   }

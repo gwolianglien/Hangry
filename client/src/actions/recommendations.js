@@ -11,7 +11,7 @@ export const getRecommendations = obj => async dispatch => {
         },
     }
     try {
-        const recommendations = await axios.get('/api/recommendations/restaurant', obj, config);
+        const recommendations = await axios.post('/api/recommendations/restaurant', obj, config);
         dispatch({
             type: SET_RECOMMENDATIONS,
             payload: recommendations,
