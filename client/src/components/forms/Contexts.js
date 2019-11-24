@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { addContext } from '../actions/inputs';
-import { createAlert } from '../actions/alerts';
+import { addContext } from '../../actions/inputs';
+import { createAlert } from '../../actions/alerts';
 
 const Contexts = ({ contexts, addContext, createAlert }) => {
 

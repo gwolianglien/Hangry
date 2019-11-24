@@ -3,7 +3,7 @@ import {
   SET_RECOMMENDATIONS,
 } from './constants';
 
-export const getRecommendations = obj => async dispatch => {
+export const getRecommendations = inputs => async dispatch => {
     const config = {
         header: {
             'Content-Type': 'application/json',
@@ -11,7 +11,12 @@ export const getRecommendations = obj => async dispatch => {
         },
     }
     try {
-        const recommendations = await axios.post('/api/recommendations/restaurant', obj, config);
+        const res = await axios.post('/api/recommendations/restaurant', inputs, config);
+        const obj = res.data;
+        let recommendations = [];
+        for (var key in obj) {
+            recommendations.push(obj[key])
+        }
         dispatch({
             type: SET_RECOMMENDATIONS,
             payload: recommendations,

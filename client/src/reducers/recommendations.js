@@ -3,14 +3,14 @@ import {
   CLEAR
 } from '../actions/constants';
 
-const initialState = [];
+const initialState = {};
 
 export default (state=initialState, action) => {
   switch(action.type) {
     case SET_RECOMMENDATIONS:
       return action.payload;
     case CLEAR:
-      return [];
+      return {};
     default:
       return state;
   }

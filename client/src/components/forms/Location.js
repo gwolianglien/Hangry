@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { addLocation } from '../actions/inputs';
+import { addLocation } from '../../actions/inputs';
 
 const Location = ({ addLocation }) => {
 
-  const [user, setUser] = useState({ 'location': '' });  //User input
+  const [user, setUser] = useState({ location: '' });  //User input
   const [locationsList, setLocationList] = useState([]);  //UI
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Location = ({ addLocation }) => {
           <select className="form-control" id="location" onChange={event => handleChange(event)} value={user.location}>
             <option value=''>Surprise Me!</option>
             {
-              locationsList.map((location, i) => <option key={i} value={`${location}`}>{location}</option>)
+              locationsList.map((location, i) => <option key={`loc-${i}`} value={`${location}`}>{location}</option>)
             }
           </select>
         </div>
