@@ -12,13 +12,14 @@ def restaurant_recommendations():
         locations = req.get("locations")
         cuisines = req.get("cuisines")
         recommendations = get_restaurant_recommendations(contexts, locations, cuisines)
-
         recs = {}
         for i in range(len(recommendations)):
             name = 'rec{}'.format(i+1)
-            recs[name] = recommendations[i]
+            restaurant = recommendations[i]
+            if restaurant.get('score'):
+                restaurant.pop('score', None)
+            recs[name] = restaurant
         obj = jsonify(recs)
-
         return obj
     except:
         return Response('Server Error', status=500)

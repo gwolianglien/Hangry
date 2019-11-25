@@ -26,7 +26,7 @@ const Location = ({ addLocation }) => {
       ...user,
       [event.target.id]: event.target.value
     });
-    addLocation(user.location);
+    addLocation(event.target.value);
   }
 
   return (

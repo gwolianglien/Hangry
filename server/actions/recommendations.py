@@ -58,7 +58,7 @@ def context_location_recommendation(contexts: list, locations: list) -> list:
 Select a number of restaurants to recommend from a final list of relevant restaurants
 """
 def get_recommendations(restaurantset, random=True, top=25, num=3) -> list:
-    restaurantset.sort(key=lambda r: r['rating'], reverse=True)  # sort by rating
+    restaurantset.sort(key=lambda r: int(r['rating']), reverse=True)  # sort by rating
     restaurantset = restaurantset[:top]  # pick out top 25
     if random:
         recommendations = sample(restaurantset, num)  # choose 3 random from top 25
@@ -77,7 +77,7 @@ def location_filter(restaurantset: list, locations: list) -> list:
         curr = r['districtset']
         for district in curr:
             if district in locations:
-                relevant_restaurants.append(restaurantset)
+                relevant_restaurants.append(r)
                 break
     return relevant_restaurants
 
@@ -103,22 +103,26 @@ def context_filter(restaurantset: list, contexts: list, top=50) -> list:
     # Get user map and vector
     user_map = contexts_map.copy()
     for c in contexts:
-        if c in user_map: user_map[c] = 1
-    user_arr = [ (context, user[context]) for context in user ]
+        if c in user_map: 
+            user_map[c] = 1
+    user_arr = [ (context, user_map[context]) for context in user_map ]
     user_arr.sort(key=lambda x: x[0])  # sort by context in alphabetical order
-    user_vector = [ x[1] for x in user_arr ]  # keep only the binary values
+    user_vector = np.array([ x[1] for x in user_arr ]).reshape(1,-1)  # keep only the binary values
 
     # Compare and score restaurant context similarity
     for restaurant in restaurantset:
-        curr = contexts_map.copy()
-        for c in restaurant.get('contexts'):
-            if context in curr_contexts: curr[c] = 1
-        curr = [ (context, user[context]) for context in user ]
-        curr.sort(key=lambda x: x[0])  # sort by context in alphabetical order
-        curr = [ x[1] for x in curr ]
-        cos_sim = cosine_similarity(user_vector, curr)
+        curr_contexts = restaurant.get('contexts')
+        
+        curr_map = contexts_map.copy()
+        for c in curr_contexts:
+            if c in curr_map:
+                curr_map[c] = 1
+        curr_map = [ (x, curr_map[x] ) for x in curr_map ]
+        curr_map.sort(key=lambda x: x[0])  # sort by context in alphabetical order
+        curr_map = [ x[1] for x in curr_map ]
+        curr_map = np.array(curr_map).reshape(1,-1)
+        cos_sim = cosine_similarity(user_vector, curr_map)
         restaurant['score'] = cos_sim
-
     restaurantset.sort(key=lambda r: r['score'], reverse=True)
     relevant_restaurants = restaurantset[:top]
     return relevant_restaurants
